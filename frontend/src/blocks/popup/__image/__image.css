@@ -1,0 +1,8 @@
+.popup__image {
+  /*justify-self: center;*/
+  /*display: flex;*/
+  max-width: 75vw;
+  max-height: 75vh;
+  position: relative;
+  z-index: 2;
+}

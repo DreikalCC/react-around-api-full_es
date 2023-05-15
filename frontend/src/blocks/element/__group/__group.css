@@ -1,0 +1,8 @@
+.element__group {
+  display: grid;
+  grid-template-columns: 1fr 36px;
+  align-items: center;
+  color: black;
+  height: 79px;
+  max-width: 100%;
+}

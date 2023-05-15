@@ -1,0 +1,7 @@
+.edit__submit-btn_inactive {
+  color: #ccc;
+  background: white;
+  pointer-events: none;
+  user-select: none;
+  border: 1px solid #ccc;
+}

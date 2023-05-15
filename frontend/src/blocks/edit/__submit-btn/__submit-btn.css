@@ -1,0 +1,25 @@
+.edit__submit-btn {
+  padding: 0;
+  border: none;
+  color: white;
+  background-color: black;
+  border-radius: 2px;
+  width: 358px;
+  height: 50px;
+  align-self: center;
+  margin-bottom: 36px;
+  margin-top: 38px;
+}
+
+.edit__submit-btn:hover {
+  transition: .5s;
+  opacity: .8;
+  cursor: pointer;
+}
+
+@media screen and (max-width:585px){
+  .edit__submit-btn {
+    width: 238px;
+    height: 46px;
+  }
+}

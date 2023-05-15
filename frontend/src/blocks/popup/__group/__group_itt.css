@@ -1,0 +1,18 @@
+.popup__group_itt{
+  background-color: white;
+  z-index: 2;
+  max-width: 430px;
+  max-height: 330px;
+  width: 100%;
+  color: black;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  border-radius: 10px;
+}
+
+@media screen and (max-width:470px){
+  .popup__group_itt{
+    margin: auto 20px;
+  }
+}

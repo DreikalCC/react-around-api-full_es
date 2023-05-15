@@ -1,0 +1,18 @@
+.header {
+  max-width: 880px;
+  height: 74px;
+  padding-top: 45px;
+  display: grid;
+  grid-template-columns: 20% 80%;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width:550px){
+  .header {
+    grid-template-rows: 1fr 50px;
+    height: min-content;
+    padding-top: 28px;
+    width: 100%;
+  }
+}

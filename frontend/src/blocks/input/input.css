@@ -1,0 +1,20 @@
+.input {
+  padding: 0;
+  align-self: center;
+  width: 358px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+input::-webkit-input-placeholder {
+  color: black;
+}
+
+@media screen and (max-width:585px){
+  .input {
+    padding-bottom: 46px;
+    width: 238px;
+  }
+}

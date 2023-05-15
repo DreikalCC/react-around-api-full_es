@@ -1,0 +1,9 @@
+.edit__overlay {
+  height: 100vh;
+  width: 100vw;
+  /*top: -194px;*/
+  position: absolute;
+  background-color: black;
+  opacity: .6;
+  z-index: 1;
+}

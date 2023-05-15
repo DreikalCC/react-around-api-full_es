@@ -1,0 +1,7 @@
+.input__form:invalid{
+  border-bottom: 1px solid red;
+}
+
+.input__form:valid{
+  border-bottom: 1px solid green;
+}

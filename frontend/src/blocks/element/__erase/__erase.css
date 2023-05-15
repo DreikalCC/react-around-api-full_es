@@ -1,0 +1,17 @@
+.element__erase {
+  background: url(../../../images/thrash.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 18px;
+  height: 19px;
+  top: 18px;
+  right: 15px;
+  border: 0;
+}
+
+.element__erase:hover {
+  transition: .5s;
+  opacity: .5;
+  cursor: pointer;
+}

@@ -1,0 +1,8 @@
+.header__log-btn{
+  width: fit-content;
+  border: none;
+  background-color: unset;
+  color: white;
+  cursor: pointer;
+  justify-self: center;
+}

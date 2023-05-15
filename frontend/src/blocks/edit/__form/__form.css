@@ -1,0 +1,22 @@
+.edit__form {
+  /*justify-self: center;*/
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  width: 430px;
+  /*height: 330px;*/
+  position: relative;
+  z-index: 2;
+  /*transition: opacity 1s linear;
+  opacity: 1;*/
+  /*align-self: center;*/
+}
+
+@media screen and (max-width:585px){
+  .edit__form {
+    width: 282px;
+    height: 322px;
+  }
+}

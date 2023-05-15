@@ -1,0 +1,20 @@
+.header__user-stat{
+  justify-content: flex-end;
+  height: fit-content;
+  display: flex;
+}
+
+@media screen and (max-width:550px){
+  .header__user-stat{
+    margin-bottom: 24px;
+    align-items: center;
+    flex-direction: column;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    row-gap: 18px;
+    visibility: hidden;
+    height: 0;
+  }
+}

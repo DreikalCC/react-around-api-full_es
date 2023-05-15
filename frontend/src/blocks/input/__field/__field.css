@@ -1,0 +1,13 @@
+.input__field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.input__field:nth-child(1) {
+  margin-top: 54px;
+}
+
+.input__field:last-child{
+  margin-bottom: 10px;
+}

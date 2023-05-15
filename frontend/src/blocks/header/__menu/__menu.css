@@ -1,0 +1,25 @@
+.header__menu {
+  background-image: url(../../../images/menu.png);
+  background-position: center;
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  right: 0;
+  background-color: unset;
+  display: none;
+  cursor: pointer;
+  transition: all .1s linear;
+  border: none;
+}
+
+@media screen and (max-width:550px) {
+  .header__menu {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    display: block;
+    justify-self: flex-end;
+    margin-right: 30px;
+  }
+}

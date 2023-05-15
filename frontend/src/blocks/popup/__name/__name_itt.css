@@ -1,0 +1,22 @@
+.popup__name_itt{
+  color:black;
+  position: relative;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  width: 358px;
+  height: 58px;
+  text-align: center;
+  margin: 32px 36px 60px;
+}
+
+@media screen and (max-width:470px){
+  .popup__name_itt{
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 24px;
+    width: auto;
+    height: auto;
+    margin: 40px 18px 50px;
+  }
+}

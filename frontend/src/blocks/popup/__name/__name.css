@@ -1,0 +1,7 @@
+.popup__name {
+  position: absolute;
+  z-index: 2;
+  font-size: .75rem;
+  line-height: 1rem;
+  font-weight: 400;
+}

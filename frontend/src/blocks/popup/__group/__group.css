@@ -1,0 +1,6 @@
+.popup__group {
+  position: relative;
+  align-self: normal;
+  height: fit-content;
+  margin: auto;
+}
