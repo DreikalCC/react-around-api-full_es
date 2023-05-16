@@ -9,6 +9,7 @@ const {
   likeCard,
   dislikeCard,
 } = require("../controllers/cardsController");
+
 const { celebrate, Joi} = require('celebrate');
 const validateURL = (value, helpers) => {
   if (validator.isURL(value)) {

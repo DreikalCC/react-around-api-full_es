@@ -8,6 +8,7 @@ const auth = require("./middlewares/auth");
 
 const usersRoute = require("./routes/users");
 const cardsRoute = require("./routes/cards");
+const { errors } = require('celebrate');
 
 mongoose.connect("mongodb://localhost:27017/aroundb");
 
@@ -27,6 +28,8 @@ app.post("/signup", createUser);
 app.use(auth);
 app.use("/users", usersRoute);
 app.use("/cards", cardsRoute);
+
+app.use(errors());
 app.use("/", (req, res) => {
   res
     .status(404)
