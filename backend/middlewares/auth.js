@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
+const Unauthorized = require('../errors/unauthorized');
 
-const handleAuthError = (res) => {
-    res.status(401).send({message:'se requiere autorización'});
-}
+function handleAuthError(){
+    throw new Unauthorized("No se cuenta con autorización");
+  }
+
 const extractBearerToken = (header) => {
     return header.replace('Bearer ', '');
 };

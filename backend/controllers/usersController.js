@@ -4,25 +4,27 @@ const jwt = require('jasonwebtoken');
 const crypto = require('crypto');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const randomString = crypto.randomBytes(16).toString('hex');
+const NotFoundError = require('../errors/not-found');
+
+function onOrFail(){
+  throw new NotFoundError("No se ha encontrado ningún usuario");
+}
 
 module.exports.getUsers = (req, res) => {
   User.find({})
-    .orFail(() => {
-      const error = new Error("No se ha encontrado ningún usuario");
-      error.status = 404;
-      throw error;
-    })
+    .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
+    .catch(next
+      /*(err) => {
       if (err.status === 404) {
         res.status(404).send({ message: "no existe tal usuario" });
       } else {
         res.status(500).send({ message: "Error", err, body: req.body });
       }
-    });
+    }*/
+    );
 };
 
 /*module.exports.login = (req, res) => {
@@ -63,47 +65,45 @@ module.exports.login = (req, res) => {
         {expiresIn:'7d'})
       res.send({ token, message: "¡Bienvenido de vuelta!" });
     })
-    .catch((err) => {
+    .catch(next
+      /*(err) => {
       res.status(401).send({ message: "Error", err, body: req.body });
-    });
+    }*/
+    );
 };
 
 module.exports.getCurrentUser = (req, res) => {
   User.findById(req.params.id)
-    .orFail(() => {
-      const error = new Error("No se ha encontrado ningún usuario");
-      error.status = 404;
-      throw error;
-    })
+    .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
+    .catch(next
+      /*(err) => {
       if (err.status === 404) {
         res.status(404).send({ message: "no existe tal usuario" });
       } else {
         res.status(500).send({ message: "Error", err, body: req.body });
       }
-    });
+    }*/
+    );
 };
 
 module.exports.getSpecificUser = (req, res) => {
   User.findById(req.params.id)
-    .orFail(() => {
-      const error = new Error("No se ha encontrado ningún usuario");
-      error.status = 404;
-      throw error;
-    })
+    .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
+    .catch(next
+      /*(err) => {
       if (err.status === 404) {
         res.status(404).send({ message: "no existe tal usuario" });
       } else {
         res.status(500).send({ message: "Error", err, body: req.body });
       }
-    });
+    }*/
+    );
 };
 
 module.exports.createUser = (req, res) => {
@@ -117,9 +117,11 @@ module.exports.createUser = (req, res) => {
         _id: user._id,
       });
     })
-    .catch((err) => {
+    .catch(next
+      /*(err) => {
       res.status(500).send({ message: "Error", err, body: req.body });
-    });
+    }*/
+    );
 };
 
 module.exports.updateProfile = (req, res) => {
@@ -134,13 +136,15 @@ module.exports.updateProfile = (req, res) => {
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
+    .catch(next
+      /*(err) => {
       if (err.status === 404) {
         res.status(404).send({ message: "no existe tal usuario" });
       } else {
         res.status(500).send({ message: "Error", err, body: req.body });
       }
-    });
+    }*/
+    );
 };
 
 module.exports.updateAvatar = (req, res) => {
@@ -155,11 +159,13 @@ module.exports.updateAvatar = (req, res) => {
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
+    .catch(next
+      /*(err) => {
       if (err.status === 404) {
         res.status(404).send({ message: "no existe tal usuario" });
       } else {
         res.status(500).send({ message: "Error", err, body: req.body });
       }
-    });
+    }*/
+    );
 };
