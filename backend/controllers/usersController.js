@@ -1,29 +1,30 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user");
-const jwt = require('jasonwebtoken');
+const jwt = require("jasonwebtoken");
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-const NotFoundError = require('../errors/not-found');
+const NotFoundError = require("../errors/not-found");
 
-function onOrFail(){
+function onOrFail() {
   throw new NotFoundError("No se ha encontrado ningún usuario");
 }
 
 module.exports.getUsers = (req, res) => {
   User.find({})
-  .orFail(onOrFail)
-  .then((data) => {
-    res.send({ status: true, data: data });
-  })
-  .catch(next
-    /*(err) => {
+    .orFail(onOrFail)
+    .then((data) => {
+      res.send({ status: true, data: data });
+    })
+    .catch(
+      next
+      /*(err) => {
     if (err.status === 404) {
       res.status(404).send({ message: "no existe tal usuario" });
     } else {
       res.status(500).send({ message: "Error", err, body: req.body });
     }
   }*/
-  );
+    );
 };
 
 /*module.exports.login = (req, res) => {
@@ -56,54 +57,60 @@ module.exports.getUsers = (req, res) => {
 module.exports.login = (req, res) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
-  .select('+password')
-  .orFail(onOrFail)
-  .then((user) => {
-    const token = jwt.sign({
-      _id:user._id}, 
-      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', 
-      {expiresIn:'7d'})
-    res.send({ token, message: "¡Bienvenido de vuelta!" });
-  })
-  .catch(next
-    /*(err) => {
+    .select("+password")
+    .orFail(onOrFail)
+    .then((user) => {
+      const token = jwt.sign(
+        {
+          _id: user._id,
+        },
+        NODE_ENV === "production" ? JWT_SECRET : "dev-secret",
+        { expiresIn: "7d" }
+      );
+      res.send({ token, message: "¡Bienvenido de vuelta!" });
+    })
+    .catch(
+      next
+      /*(err) => {
     res.status(401).send({ message: "Error", err, body: req.body });
   }*/
-  );
+    );
 };
 
 module.exports.getCurrentUser = (req, res) => {
   User.findById(req.params.id)
-  .orFail(onOrFail)
-  .then((data) => {
-    res.send({ status: true, data: data });
-  })
-  .catch(next
-    /*(err) => {
+    .orFail(onOrFail)
+    .then((data) => {
+      res.send({ status: true, data: data });
+    })
+    .catch(
+      next
+      /*(err) => {
     if (err.status === 404) {
       res.status(404).send({ message: "no existe tal usuario" });
     } else {
       res.status(500).send({ message: "Error", err, body: req.body });
     }
   }*/
-  );
+    );
 };
 
 module.exports.getSpecificUser = (req, res) => {
   User.findById(req.params.id)
-  .orFail(onOrFail)
-  .then((data) => {
-    res.send({ status: true, data: data });
-  })
-  .catch(next
-    /*(err) => {
+    .orFail(onOrFail)
+    .then((data) => {
+      res.send({ status: true, data: data });
+    })
+    .catch(
+      next
+      /*(err) => {
     if (err.status === 404) {
       res.status(404).send({ message: "no existe tal usuario" });
     } else {
       res.status(500).send({ message: "Error", err, body: req.body });
     }
   }*/
-  );
+    );
 };
 
 module.exports.createUser = (req, res) => {
@@ -117,7 +124,8 @@ module.exports.createUser = (req, res) => {
         _id: user._id,
       });
     })
-    .catch(next
+    .catch(
+      next
       /*(err) => {
       res.status(500).send({ message: "Error", err, body: req.body });
     }*/
@@ -128,36 +136,38 @@ module.exports.updateProfile = (req, res) => {
   const { userId } = req.params.id;
   const { name, about } = req.body;
   User.updateOne({ _id: userId }, { name, about })
-  .orFail(onOrFail)
-  .then((data) => {
-    res.send({ status: true, data: data });
-  })
-  .catch(next
-    /*(err) => {
+    .orFail(onOrFail)
+    .then((data) => {
+      res.send({ status: true, data: data });
+    })
+    .catch(
+      next
+      /*(err) => {
     if (err.status === 404) {
       res.status(404).send({ message: "no existe tal usuario" });
     } else {
       res.status(500).send({ message: "Error", err, body: req.body });
     }
   }*/
-  );
+    );
 };
 
 module.exports.updateAvatar = (req, res) => {
   const { userId } = req.params.id;
   const { avatar } = req.body;
   User.updateOne({ _id: userId }, { avatar })
-  .orFail(onOrFail)
-  .then((data) => {
-    res.send({ status: true, data: data });
-  })
-  .catch(next
-    /*(err) => {
+    .orFail(onOrFail)
+    .then((data) => {
+      res.send({ status: true, data: data });
+    })
+    .catch(
+      next
+      /*(err) => {
     if (err.status === 404) {
       res.status(404).send({ message: "no existe tal usuario" });
     } else {
       res.status(500).send({ message: "Error", err, body: req.body });
     }
   }*/
-  );
+    );
 };

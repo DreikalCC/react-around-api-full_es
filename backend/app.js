@@ -4,11 +4,11 @@ const { PORT, BASE_PATH } = process.env;
 const path = require("path");
 const mongoose = require("mongoose");
 const auth = require("./middlewares/auth");
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const usersRoute = require("./routes/users");
 const cardsRoute = require("./routes/cards");
-const { errors } = require('celebrate');
+const { errors } = require("celebrate");
 
 mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
