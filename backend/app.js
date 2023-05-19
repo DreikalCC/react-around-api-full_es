@@ -13,7 +13,7 @@ const { login, createUser } = require('./controllers/usersController')
 
 config();
 
-const { PORT, BASE_PATH } = process.env;
+const { PORT } = process.env;
 
 console.log(process.env);
 
@@ -21,7 +21,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
 app.listen(PORT, () => {
   console.log(`App listening to port ${PORT}`);
-  console.log(BASE_PATH);
 });
 
 app.use(express.static(path.join(__dirname, "data")));
