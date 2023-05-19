@@ -1,3 +1,4 @@
+const config = require('dotenv').config;
 const express = require("express");
 const app = express();
 const { PORT, BASE_PATH } = process.env;
@@ -9,6 +10,8 @@ const cors = require("cors");
 const usersRoute = require("./routes/users");
 const cardsRoute = require("./routes/cards");
 const { errors } = require("celebrate");
+
+config();
 
 mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
