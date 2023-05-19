@@ -103,7 +103,7 @@ class Api {
 }
 
 const api = new Api({
-  address: 'http://aldo.desarrollointerno.com/',
+  address: 'https://api.aldo.desarrollointerno.com/',
   token: '04346056-dea4-4d40-8541-43203e80bf1a',
   headers: {
     authorization: '04346056-dea4-4d40-8541-43203e80bf1a',
