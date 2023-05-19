@@ -5,7 +5,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const auth = require("./middlewares/auth");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
-
+const cors = require("cors");
 const usersRoute = require("./routes/users");
 const cardsRoute = require("./routes/cards");
 const { errors } = require("celebrate");
@@ -18,6 +18,9 @@ app.listen(PORT, () => {
 });
 
 app.use(express.static(path.join(__dirname, "data")));
+
+app.use(cors());
+app.options('*', cors());
 
 app.use("/", express.json());
 app.use("/", express.urlencoded({ extended: true }));
