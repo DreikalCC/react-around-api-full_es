@@ -1,7 +1,6 @@
 const config = require('dotenv').config;
 const express = require("express");
 const app = express();
-const { PORT, BASE_PATH } = process.env;
 const path = require("path");
 const mongoose = require("mongoose");
 const auth = require("./middlewares/auth");
@@ -13,6 +12,10 @@ const { errors } = require("celebrate");
 const { login, createUser } = require('./controllers/usersController')
 
 config();
+
+const { PORT, BASE_PATH } = process.env;
+
+console.log(process.env);
 
 mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
