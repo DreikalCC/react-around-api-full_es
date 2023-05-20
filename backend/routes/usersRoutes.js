@@ -19,7 +19,7 @@ const {
 router.get("/", getUsers);
 
 router.get(
-  "/:id",
+  ":id",
   celebrate({
     params: Joi.object().keys({
       _Id: Joi.string().alphanum(),
@@ -34,7 +34,7 @@ router.get(
 );
 
 router.get(
-  "/users/me",
+  "users/me",
   celebrate({
     params: Joi.object().keys({
       _Id: Joi.string().alphanum(),
@@ -49,7 +49,7 @@ router.get(
 );
 
 router.patch(
-  "/me",
+  "me",
   celebrate({
     body: Joi.object()
       .keys({
@@ -62,7 +62,7 @@ router.patch(
 );
 
 router.patch(
-  "/me/avatar",
+  "me/avatar",
   celebrate({
     body: Joi.object()
       .keys({
