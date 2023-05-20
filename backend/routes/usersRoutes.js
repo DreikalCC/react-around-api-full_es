@@ -11,10 +11,8 @@ const validateURL = (value, helpers) => {
 const {
   getUsers,
   getSpecificUser,
-  createUser,
   updateProfile,
   updateAvatar,
-  login,
   getCurrentUser,
 } = require("../controllers/usersController");
 
@@ -26,8 +24,11 @@ router.get(
     params: Joi.object().keys({
       _Id: Joi.string().alphanum(),
     }),
-    headers: Joi.object().keys({}),
-    query: Joi.object().keys({}),
+    headers: Joi.object().keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().min(6),
+    }),
+    //query: Joi.object().keys({}),
   }),
   getSpecificUser
 );
@@ -38,15 +39,14 @@ router.get(
     params: Joi.object().keys({
       _Id: Joi.string().alphanum(),
     }),
-    headers: Joi.object().keys({}),
-    query: Joi.object().keys({}),
+    headers: Joi.object().keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().min(8),
+    }),
+    //query: Joi.object().keys({}),
   }),
   getCurrentUser
 );
-
-/*router.post("/", login);
-
-router.post("/", createUser);*/
 
 router.patch(
   "/me",

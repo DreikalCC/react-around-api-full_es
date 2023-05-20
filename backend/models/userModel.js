@@ -52,9 +52,9 @@ const userSchema = new mongoose.Schema({
       validator.isStrongPassword(this.password, { 
         minLength: 6, 
         minLowercase: 1, 
-        minUppercase: 1, 
+        minUppercase: 0, 
         minNumbers: 1, 
-        minSymbols: 1, 
+        minSymbols: 0, 
         returnScore: false, 
         pointsPerUnique: 1, 
         pointsPerRepeat: 1, 
