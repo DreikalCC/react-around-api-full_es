@@ -33,10 +33,15 @@ app.use("/", express.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('El servidor va a caer');
+  }, 0);
+}); 
+
 app.post("/login", login);
 app.post("/signup", createUser);
-//antes de esta linea no requieren auth, despues de si requieren auth según la teoria
-//app.use(auth);
+
 app.use("/users", auth, usersRoute);
 app.use("/cards", auth, cardsRoute);
 
