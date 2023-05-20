@@ -6,19 +6,21 @@ function onOrFail() {
   throw new NotFoundError("No se ha encontrado ninguna tarjeta");
 }
 
+function cardError(){
+  if (err.status === 404) {
+    res.status(404).send({ message: "no existe tal tarjeta" });
+  } else {
+    res.status(500).send({ message: "Error", err, body: req.body });
+  }
+}
+
 module.exports.getCards = (req, res) => {
   Card.find({})
     .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
-      if (err.status === 404) {
-        res.status(404).send({ message: "no existe tal tarjeta" });
-      } else {
-        res.status(500).send({ message: "Error", err, body: req.body });
-      }
-    });
+    .catch((err) => cardError(err,res));
 };
 
 module.exports.postCard = (req, res) => {
@@ -30,9 +32,7 @@ module.exports.postCard = (req, res) => {
     .then((card) => {
       res.send({ data: card });
     })
-    .catch((err) => {
-      res.status(500).send({ message: "Error", err, body: req.body });
-    });
+    .catch((err) => cardError(err,res));
 };
 
 module.exports.deleteCard = (req, res) => {
@@ -42,13 +42,7 @@ module.exports.deleteCard = (req, res) => {
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
-      if (err.status === 404) {
-        res.status(404).send({ message: "no existe tal tarjeta" });
-      } else {
-        res.status(500).send({ message: "Error", err, body: req.body });
-      }
-    });
+    .catch((err) =>cardError(err,res));
 };
 
 module.exports.likeCard = (req, res) => {
@@ -61,13 +55,7 @@ module.exports.likeCard = (req, res) => {
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
-      if (err.status === 404) {
-        res.status(404).send({ message: "no existe tal tarjeta" });
-      } else {
-        res.status(500).send({ message: "Error", err, body: req.body });
-      }
-    });
+    .catch((err) => cardError(err,res));
 };
 
 module.exports.dislikeCard = (req, res) => {
@@ -80,11 +68,5 @@ module.exports.dislikeCard = (req, res) => {
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => {
-      if (err.status === 404) {
-        res.status(404).send({ message: "no existe tal tarjeta" });
-      } else {
-        res.status(500).send({ message: "Error", err, body: req.body });
-      }
-    });
+    .catch((err) => cardError(err,res));
 };

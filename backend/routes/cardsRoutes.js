@@ -33,7 +33,7 @@ router.delete("/:cardId", celebrate({
     cardId: Joi.string().alphanum(),
   }),
   headers: Joi.object().keys({}),
-  query: Joi.object().keys({}),
+  //query: Joi.object().keys({}),
 }), deleteCard);
 
 router.put("/:cardId/likes", celebrate({
@@ -41,7 +41,7 @@ router.put("/:cardId/likes", celebrate({
     cardId: Joi.string().alphanum(),
   }),
   headers: Joi.object().keys({}),
-  query: Joi.object().keys({}),
+  //query: Joi.object().keys({}),
 }), likeCard);
 
 router.delete("/:cardId/likes", celebrate({
@@ -49,7 +49,7 @@ router.delete("/:cardId/likes", celebrate({
     cardId: Joi.string().alphanum(),
   }),
   headers: Joi.object().keys({}),
-  query: Joi.object().keys({}),
+  //query: Joi.object().keys({}),
 }), dislikeCard);
 
 module.exports = router;

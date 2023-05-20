@@ -17,13 +17,6 @@ module.exports.getUsers = (req, res) => {
     })
     .catch(
       next
-      /*(err) => {
-    if (err.status === 404) {
-      res.status(404).send({ message: "no existe tal usuario" });
-    } else {
-      res.status(500).send({ message: "Error", err, body: req.body });
-    }
-  }*/
     );
 };
 
@@ -44,9 +37,6 @@ module.exports.login = (req, res) => {
     })
     .catch(
       next
-      /*(err) => {
-    res.status(401).send({ message: "Error", err, body: req.body });
-  }*/
     );
 };
 
@@ -58,13 +48,6 @@ module.exports.getCurrentUser = (req, res) => {
     })
     .catch(
       next
-      /*(err) => {
-    if (err.status === 404) {
-      res.status(404).send({ message: "no existe tal usuario" });
-    } else {
-      res.status(500).send({ message: "Error", err, body: req.body });
-    }
-  }*/
     );
 };
 
@@ -76,13 +59,6 @@ module.exports.getSpecificUser = (req, res) => {
     })
     .catch(
       next
-      /*(err) => {
-    if (err.status === 404) {
-      res.status(404).send({ message: "no existe tal usuario" });
-    } else {
-      res.status(500).send({ message: "Error", err, body: req.body });
-    }
-  }*/
     );
 };
 
@@ -99,9 +75,6 @@ module.exports.createUser = (req, res) => {
     })
     .catch(
       next
-      /*(err) => {
-      res.status(500).send({ message: "Error", err, body: req.body });
-    }*/
     );
 };
 
@@ -115,13 +88,6 @@ module.exports.updateProfile = (req, res) => {
     })
     .catch(
       next
-      /*(err) => {
-    if (err.status === 404) {
-      res.status(404).send({ message: "no existe tal usuario" });
-    } else {
-      res.status(500).send({ message: "Error", err, body: req.body });
-    }
-  }*/
     );
 };
 
@@ -135,12 +101,5 @@ module.exports.updateAvatar = (req, res) => {
     })
     .catch(
       next
-      /*(err) => {
-    if (err.status === 404) {
-      res.status(404).send({ message: "no existe tal usuario" });
-    } else {
-      res.status(500).send({ message: "Error", err, body: req.body });
-    }
-  }*/
     );
 };
