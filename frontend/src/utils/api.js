@@ -104,9 +104,9 @@ class Api {
 
 const api = new Api({
   address: 'https://api.aldo.desarrollointerno.com',
-  token: '04346056-dea4-4d40-8541-43203e80bf1a',
+  token: '04346056-dea4-4d40-8541-43203e80bf1',
   headers: {
-    authorization: '04346056-dea4-4d40-8541-43203e80bf1a',
+    authorization: '04346056-dea4-4d40-8541-43203e80bf1',
     'Content-Type': 'application/json',
   },
 });
