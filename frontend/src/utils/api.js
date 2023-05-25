@@ -33,10 +33,10 @@ class Api {
       .catch((err) => console.log(err));
   }
 
-  postUserInfo(name, about) {
+  postUserInfo(name, about, token) {
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: (this.headers,token),
       body: JSON.stringify({
         name: name,
         about: about,
@@ -46,10 +46,10 @@ class Api {
       .catch((err) => console.log(err));
   }
 
-  postUserAvatar(link) {
+  postUserAvatar(link, token) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: (this.headers,token),
       body: JSON.stringify({
         avatar: link,
       }),
@@ -58,10 +58,10 @@ class Api {
       .catch((err) => console.log(err));
   }
 
-  postCard(name, link) {
+  postCard(name, link, token) {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
-      headers: this.headers,
+      headers: (this.headers,token),
       body: JSON.stringify({
         name,
         link,
@@ -71,11 +71,11 @@ class Api {
       .catch((err) => console.log(err));
   }
 
-  changeLikeCardStatus(cardId, isLiked) {
+  changeLikeCardStatus(cardId, isLiked, token) {
     if (isLiked) {
       return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
         method: 'DELETE',
-        headers: this.headers,
+        headers: (this.headers,token),
         body: JSON.stringify({}),
       })
         .then(this._checkResponse)
@@ -83,7 +83,7 @@ class Api {
     } else {
       return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
         method: 'PUT',
-        headers: this.headers,
+        headers: (this.headers,token),
         body: JSON.stringify({}),
       })
         .then(this._checkResponse)
@@ -91,10 +91,10 @@ class Api {
     }
   }
 
-  deleteCard(cardId) {
+  deleteCard(cardId, token) {
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: this.headers,
+      headers: (this.headers,token),
       body: JSON.stringify({}),
     })
       .then(this._checkResponse)

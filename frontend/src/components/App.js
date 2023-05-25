@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCallback } from 'react';
-import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate, Link } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Main } from './Main';
@@ -42,13 +42,15 @@ export default function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [success, setSuccess] = React.useState(false);
+  const [token, setToken] = React.useState(localStorage.getItem('jwt'));
   const handleTokenCheckMemo = useCallback(()=>{
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       auth.checkToken(jwt).then((res) => {
         if (res) {
           setLoggedIn(true);
-          navigate('/main');
+          /*Navigate('/main');*/
+          <Link to='/main'></Link>
         }
       });
     }
@@ -72,7 +74,7 @@ export default function App() {
   ////card functions
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, isLiked, token).then((newCard) => {
       setCards((state) => {
         return state.map((c) => (c._id === card._id ? newCard : c));
       });
@@ -80,7 +82,7 @@ export default function App() {
   }
   function handleCardDelete(card) {
     api
-      .deleteCard(card._id)
+      .deleteCard(card._id, token)
       .then(
         setCards((state) => {
           const remainingCards = state.filter((c) => c._id !== card._id);
@@ -123,7 +125,7 @@ export default function App() {
   ////updaters
   function handleUpdateUser({ name, about }) {
     api
-      .postUserInfo(name, about)
+      .postUserInfo(name, about, token)
       .then((res) => {
         setCurrentUser(res);
       })
@@ -131,7 +133,7 @@ export default function App() {
   }
   function handleUpdateAvatar({ avatar }) {
     api
-      .postUserAvatar(avatar)
+      .postUserAvatar(avatar, token)
       .then((res) => {
         setCurrentUser(res);
       })
@@ -139,7 +141,7 @@ export default function App() {
   }
   function handleAddPlaceSubmit({ name, link }) {
     api
-      .postCard(name, link)
+      .postCard(name, link, token)
       .then((newCard) => setCards([newCard, ...cards]))
       .finally(closeAllPopups());
   }
@@ -147,13 +149,18 @@ export default function App() {
   function handleLoginSubmit({ email, password }) {
     auth
       .authorize(email, password)
+      .then((token)=>{
+        setToken(token);
+        return token;
+      })
       .then((token) => {
         return auth.checkToken(token);
       })
       .then((userResponse) => {
         setLoggedIn(true);
         setEmail(email);
-        navigate('/main');
+        /*navigate('/main');*/
+        <Link to='/main'></Link>
         userPromise();
       })
       .catch((err) => {
