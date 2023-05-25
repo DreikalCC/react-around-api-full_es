@@ -48,11 +48,7 @@ app.use("/cards", auth, cardsRoute);
 app.use(errorLogger);
 app.use(errors());
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(err.statusCode).send({ message: err.message });
 });
-/*
-app.use("/", (req, res) => {
-  res
-    .status(404)
-    .send({ status: false, message: "Requested resource not found" });
-});*/
+
