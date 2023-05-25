@@ -29,6 +29,7 @@ export const authorize = (email, password) => {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
+      console.log('data del auth 1  ', res);
       if(res.ok){
         return res.json();
       }
@@ -36,7 +37,7 @@ export const authorize = (email, password) => {
     })
     .then((data) => {
       localStorage.setItem('jwt', data.token);
-      console.log('data del auth   ', data);
+      console.log('data del auth 2  ', data);
       return Promise.resolve(data.token);
     });
 };
