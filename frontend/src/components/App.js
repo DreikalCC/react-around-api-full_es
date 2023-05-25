@@ -16,6 +16,7 @@ import { ProtectedRoute } from './ProtectedRoute';
 import { Login } from './Login';
 import { Register } from './Register';
 import { InfoTooltip } from './InfoTooltip';
+import { Test } from './Test';
 
 export default function App() {
   const navigate = useNavigate();
@@ -49,8 +50,7 @@ export default function App() {
       auth.checkToken(jwt).then((res) => {
         if (res) {
           setLoggedIn(true);
-          /*Navigate('/main');*/
-          <Link to='/main'></Link>
+          Navigate('/main');
         }
       });
     }
@@ -147,6 +147,7 @@ export default function App() {
   }
   ////registry
   function handleLoginSubmit({ email, password }) {
+    setLoggedIn(true);
     auth
       .authorize(email, password)
       .then((token)=>{
@@ -159,8 +160,7 @@ export default function App() {
       .then((userResponse) => {
         setLoggedIn(true);
         setEmail(email);
-        /*navigate('/main');*/
-        <Link to='/main'></Link>
+        navigate('/main');
         userPromise();
       })
       .catch((err) => {
@@ -216,6 +216,7 @@ export default function App() {
           email={email}
         />
         <Routes>
+          <Route path='/test' element={<Test/>} />
           <Route
             path='/main'
             element={
