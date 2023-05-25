@@ -36,6 +36,7 @@ export const authorize = (email, password) => {
     })
     .then((data) => {
       localStorage.setItem('jwt', data.token);
+      console.log('data del auth   ', data);
       return Promise.resolve(data.token);
     });
 };

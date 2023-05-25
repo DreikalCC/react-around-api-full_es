@@ -1,6 +1,6 @@
 import React from 'react';
 import { useCallback } from 'react';
-import { Route, Routes, useNavigate, Navigate, Link } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { Main } from './Main';
@@ -158,6 +158,7 @@ export default function App() {
         return auth.checkToken(token);
       })
       .then((userResponse) => {
+        setCurrentUser(userResponse);
         setLoggedIn(true);
         setEmail(email);
         navigate('/main');
