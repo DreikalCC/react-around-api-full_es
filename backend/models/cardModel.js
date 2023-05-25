@@ -6,8 +6,8 @@ const cardSchema = new mongoose.Schema({
   link: {
     type: String,
     required: [true, "Dirección URL requerida"],
-    validate: () =>
-      validator.isURL(this.link, {
+    validate: (value) =>
+      validator.isURL(value, {
         message: "debe ser una RUL valida",
         protocols: ["http", "https", "www."],
         require_tld: true,

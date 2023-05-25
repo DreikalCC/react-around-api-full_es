@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: [false, "Dirección URL requerida"],
-    validate: () =>
-      validator.isURL(this.avatar, {
+    validate: (value) =>
+      validator.isURL(value, {
         message: "debe ser una RUL valida",
         protocols: ["http", "https", "www."],
         require_tld: true,
@@ -32,8 +32,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Email requerido"],
     unique: true,
-    validate: () =>
-      validator.isEmail(this.email, {
+    validate: (value) =>
+      validator.isEmail(value, {
         allow_display_name: false,
         require_display_name: false, 
         allow_utf8_local_part: true, 
@@ -48,8 +48,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 6,
-    validate: () =>
-      validator.isStrongPassword(this.password, { 
+    validate: (value) =>
+      validator.isStrongPassword(value, { 
         minLength: 6, 
         minLowercase: 1, 
         minUppercase: 0, 
