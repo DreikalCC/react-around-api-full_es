@@ -9,7 +9,7 @@ function onOrFail() {
   throw new NotFoundError("No se ha encontrado ningún usuario");
 }
 
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({})
     .orFail(onOrFail)
     .then((data) => {
@@ -20,7 +20,7 @@ module.exports.getUsers = (req, res) => {
     );
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .select("+password")
@@ -40,7 +40,7 @@ module.exports.login = (req, res) => {
     );
 };
 
-module.exports.getCurrentUser = (req, res) => {
+module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.params.id)
     .orFail(onOrFail)
     .then((data) => {
@@ -51,7 +51,7 @@ module.exports.getCurrentUser = (req, res) => {
     );
 };
 
-module.exports.getSpecificUser = (req, res) => {
+module.exports.getSpecificUser = (req, res, next) => {
   User.findById(req.params.id)
     .orFail(onOrFail)
     .then((data) => {
@@ -62,7 +62,7 @@ module.exports.getSpecificUser = (req, res) => {
     );
 };
 
-module.exports.createUser = (req, res) => {
+module.exports.createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
   bcrypt
     .hash(password, 6)
@@ -78,7 +78,7 @@ module.exports.createUser = (req, res) => {
     );
 };
 
-module.exports.updateProfile = (req, res) => {
+module.exports.updateProfile = (req, res, next) => {
   const { userId } = req.params.id;
   const { name, about } = req.body;
   User.updateOne({ _id: userId }, { name, about })
@@ -91,7 +91,7 @@ module.exports.updateProfile = (req, res) => {
     );
 };
 
-module.exports.updateAvatar = (req, res) => {
+module.exports.updateAvatar = (req, res, next) => {
   const { userId } = req.params.id;
   const { avatar } = req.body;
   User.updateOne({ _id: userId }, { avatar })
