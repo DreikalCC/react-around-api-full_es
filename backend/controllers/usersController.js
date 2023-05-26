@@ -20,12 +20,47 @@ module.exports.getUsers = (req, res, next) => {
     );
 };
 
+/*
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  return User.findUserByCredentials(email, password)
+  User.findOne({ email })
+    .select('+password')
+    .orFail(onOrFail)
+    .then((user) => {
+      if (!user) {
+        throw new AuthError('email o contraseña incorrectos');
+      }
+      req._id = user._id;
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            throw new AuthError(('email o contraseña incorrectos'));
+          }
+          return user;
+        });
+    })
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: req._id },
+        'dev-secret',
+        { expiresIn: '7d' },
+      );
+      res.header('authorization', `Bearer ${token}`);
+      res.cookie('token', token, { httpOnly: true });
+      res.status(200).send({ token, name: user.name, email: user.email });
+    })
+    .catch(next);
+};*/
+
+
+module.exports.login = (req, res, next) => {
+  console.log('corriendo el login');
+  const { email, password } = req.body;
+  return User.findUserByCredentials({email, password})
     .select("+password")
     .orFail(onOrFail)
     .then((user) => {
+      console.log('user al hacer login  ',user);
       const token = jwt.sign(
         {
           _id: user._id,
@@ -63,6 +98,7 @@ module.exports.getSpecificUser = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
+  console.log('corriendo el registro de user');
   const { name, about, avatar, email, password } = req.body;
   bcrypt
     .hash(password, 6)

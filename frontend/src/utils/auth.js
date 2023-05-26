@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.aldo.desarrollointerno.com';
+export const BASE_URL = 'https://localhost:3001';
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -20,6 +20,7 @@ export const register = (email, password) => {
 };
 
 export const authorize = (email, password) => {
+  console.log('auth iniciado');
   return fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: {
@@ -38,6 +39,7 @@ export const authorize = (email, password) => {
     .then((data) => {
       localStorage.setItem('jwt', data.token);
       console.log('data del auth 2  ', data);
+      //return data;
       return Promise.resolve(data.token);
     });
 };
