@@ -20,7 +20,9 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
+    console.log('dentro del try   ', token);
     payload = jwt.verify(token, "secret-key");
+    console.log('el payload dentro del try  ', payload);
   } catch (err) {
     return handleAuthError(res);
   }

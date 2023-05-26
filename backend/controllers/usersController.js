@@ -33,7 +33,7 @@ module.exports.login = (req, res, next) => {
         {
           _id: user._id,
         },
-        /*NODE_ENV === "production" ? JWT_SECRET :*/ "dev-secret",
+        /*NODE_ENV === "production" ? JWT_SECRET :*/ "secret-key",
         { expiresIn: "7d" }
       );
       res.send({ user, token, message: "¡Bienvenido de vuelta!" });

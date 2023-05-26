@@ -39,8 +39,8 @@ export const authorize = (email, password) => {
     .then((data) => {
       console.log('data del auth front 2  ', data);
       localStorage.setItem('jwt', data.token);
-      //return data;
-      return Promise.resolve(data);
+      return data;
+      //return Promise.resolve(data);
     });
 };
 

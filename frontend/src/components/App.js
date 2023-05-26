@@ -48,7 +48,7 @@ export default function App() {
   const handleTokenCheckMemo = useCallback((token)=>{
     //const jwt = localStorage.getItem('jwt');
     console.log('log del jwt token ', token);
-    auth.checkToken(userId).then((res) => {
+    auth.checkToken(token).then((res) => {
       console.log('log del jwt token despues de check ', res);
       if (res) {
         setLoggedIn(true);
@@ -165,7 +165,7 @@ export default function App() {
         return auth.checkToken(token);
       })
       .then((userResponse) => {
-        console.log('response despues del auth', userResponse);
+        console.log('response despues del auth en app front', userResponse);
         setCurrentUser(userResponse);
         setLoggedIn(true);
         setEmail(email);
