@@ -20,22 +20,22 @@ router.get("/", getUsers);
 
 router.get(
   "/:id",
-  celebrate({
+  /*celebrate({
     params: Joi.object().keys({
       _Id: Joi.string().alphanum(),
     }),
     headers: Joi.object().keys({
       email: Joi.string().required().email(),
       password: Joi.string().min(6),
-    }),
+    }),*/
     //query: Joi.object().keys({}),
-  }),
+  //}),
   getSpecificUser
 );
 
 router.get(
   "/users/me",
-  celebrate({
+  /*celebrate({
     params: Joi.object().keys({
       _Id: Joi.string().alphanum(),
     }),
@@ -44,7 +44,7 @@ router.get(
       password: Joi.string().min(8),
     }),
     //query: Joi.object().keys({}),
-  }),
+  }),*/
   getCurrentUser
 );
 

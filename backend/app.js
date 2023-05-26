@@ -17,7 +17,7 @@ const { PORT } = process.env;
 
 console.log(process.env);
 
-mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
+mongoose.connect("mongodb+srv://testaldo:test123456@cluster0.hqf55.mongodb.net/aroundb?retryWrites=true&w=majority");
 
 app.listen(PORT, () => {
   console.log(`App listening to port ${PORT}`);
@@ -39,11 +39,11 @@ app.get('/crash-test', () => {
   }, 0);
 }); 
 
-app.post("/login", login);
-app.post("/signup", createUser);
-
 app.use("/users", auth, usersRoute);
 app.use("/cards", auth, cardsRoute);
+
+app.post("/login", login);
+app.post("/signup", createUser);
 
 app.use(errorLogger);
 app.use(errors());

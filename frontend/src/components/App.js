@@ -44,25 +44,29 @@ export default function App() {
   const [email, setEmail] = React.useState('');
   const [success, setSuccess] = React.useState(false);
   const [token, setToken] = React.useState(localStorage.getItem('jwt'));
-  const handleTokenCheckMemo = useCallback(()=>{
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      auth.checkToken(jwt).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          Navigate('/main');
-        }
-      });
-    }
+  const [userId, setUserId] = React.useState('');
+  const handleTokenCheckMemo = useCallback((token)=>{
+    //const jwt = localStorage.getItem('jwt');
+    console.log('log del jwt token ', token);
+    auth.checkToken(userId).then((res) => {
+      console.log('log del jwt token despues de check ', res);
+      if (res) {
+        setLoggedIn(true);
+        Navigate('/main');
+      }
+    });
+    
   },[])
 
   React.useEffect(() => {
-    handleTokenCheckMemo();
+    handleTokenCheckMemo(token);
     userPromise();
   }, [handleTokenCheckMemo]);
 
   function userPromise() {
-    Promise.all([api.getUserInfo(), api.getInitialCards()])
+    if(token){
+      console.log('el token del userprom para tarjetas y usuario', token);
+    Promise.all([api.getUserInfo(token), api.getInitialCards(token)])
       .then(([user, serverCards]) => {
         setCurrentUser(user);
         setCards(serverCards);
@@ -70,6 +74,7 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       });
+    }
   }
   ////card functions
   function handleCardLike(card) {
@@ -147,17 +152,20 @@ export default function App() {
   }
   ////registry
   function handleLoginSubmit({ email, password }) {
-    setLoggedIn(true);
     auth
       .authorize(email, password)
-      .then((token)=>{
-        setToken(token);
+      .then((data)=>{
+        console.log('la data es:', data);
+        setToken(data.token);
+        setUserId(data._id)
         return token;
       })
       .then((token) => {
+        console.log('pre auth del token de login', token)
         return auth.checkToken(token);
       })
       .then((userResponse) => {
+        console.log('response despues del auth', userResponse);
         setCurrentUser(userResponse);
         setLoggedIn(true);
         setEmail(email);

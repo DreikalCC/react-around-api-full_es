@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema({
         pointsForContainingNumber: 10, 
         pointsForContainingSymbol: 10 
       }),
-    select:true,
+    // select:true,
   },
 });
 
@@ -72,6 +72,7 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
   email,
   password
 ) {
+  console.log(email, password);
   this.findOne({ email }).then((user)=>{console.log(user)});
 
   return this.findOne({ email })
@@ -79,12 +80,14 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
       if (!user) {
         return Promise.reject(new Error("Email o password incorrecto"));
       }
-      console.log('log del modelo user', user.password,user,email,password);
+      console.log('log del modelo user',user, 'email  ',email,'password  ',password);
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
+            console.log('not matched !!!!!!!!!!!!!!!!!!');
             return Promise.reject(new Error("Email o password incorrecto"));
           }
+          console.log('despues del bcrypt compare   ', user);
           return user;
         });
     });

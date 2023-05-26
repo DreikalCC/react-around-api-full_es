@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://localhost:3001';
+export const BASE_URL = 'http://localhost:3001';
 
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
@@ -30,29 +30,34 @@ export const authorize = (email, password) => {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      console.log('data del auth 1  ', res);
+      console.log('data del auth front 1  ', res);
       if(res.ok){
         return res.json();
       }
       throw new Error(res.error)
     })
     .then((data) => {
+      console.log('data del auth front 2  ', data);
       localStorage.setItem('jwt', data.token);
-      console.log('data del auth 2  ', data);
       //return data;
-      return Promise.resolve(data.token);
+      return Promise.resolve(data);
     });
 };
 
 export const checkToken = (token) => {
+  console.log('log problematico checkToken  ', token);
   return fetch(`${BASE_URL}/users/me`, {
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      'Content-type': 'application/json',
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
   })
-    .then((res) => res.json())
+    .then((res) => {
+      console.log('log then del checkToken  ', res);
+      res.json()
+    })
     .then((data) => data);
 };
+

@@ -3,7 +3,6 @@ import { Credentials } from './Credentials';
 import { useNavigate } from 'react-router-dom';
 
 export function Login(props) {
-  console.log(props);
   const navigate=useNavigate();
   function handleSubmit(e) {
     e.preventDefault();
