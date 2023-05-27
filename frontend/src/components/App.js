@@ -50,7 +50,6 @@ export default function App() {
     auth.checkToken(token).then((res) => {
       console.log('log del jwt token despues de check ', res);
       if (res) {
-        console.log('revisando al cargar si hay mail  ', email, 'name ', name,'avatar ');
         setLoggedIn(true);
         navigate('/main');
       }
@@ -58,8 +57,8 @@ export default function App() {
   },[])
 
   React.useEffect(() => {
-    handleTokenCheckMemo(token);
     userPromise(token);
+    handleTokenCheckMemo(token);
   }, [handleTokenCheckMemo]);
 
   function userPromise(token) {
