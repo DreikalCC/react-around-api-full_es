@@ -16,8 +16,10 @@ class Api {
   }
 
   getInitialCards(token) {
+    console.log('api getinicards token', token);
     return fetch(`${this.baseUrl}/cards`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     })
@@ -26,9 +28,10 @@ class Api {
   }
 
   getUserInfo(token) {
-    console.log('api getuserinfo token', token);
+    console.log('api getuserinfo', token);
     return fetch(`${this.baseUrl}/users/me`, {
       headers: {
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     })
@@ -37,9 +40,13 @@ class Api {
   }
 
   postUserInfo(name, about, token) {
+    console.log('api postinfo ', name, about, token);
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
-      headers: `Bearer ${token}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name: name,
         about: about,
@@ -50,9 +57,13 @@ class Api {
   }
 
   postUserAvatar(link, token) {
+    console.log('api avatar ', link, token);
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
-      headers: `Bearer ${token}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         avatar: link,
       }),
@@ -62,23 +73,32 @@ class Api {
   }
 
   postCard(name, link, token) {
+    console.log('api de postcard ', name, link, token);
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
-      headers: `Bearer ${token}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({
         name,
         link,
       }),
     })
       .then(this._checkResponse)
+      .then((res)=>console.log('despues del checkresponse del postcard', res))
       .catch((err) => console.log(err));
   }
 
   changeLikeCardStatus(cardId, isLiked, token) {
+    console.log('api card stat ', cardId,isLiked,token);
     if (isLiked) {
       return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
         method: 'DELETE',
-        headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({}),
       })
         .then(this._checkResponse)
@@ -86,7 +106,10 @@ class Api {
     } else {
       return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
         method: 'PUT',
-        headers: `Bearer ${token}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({}),
       })
         .then(this._checkResponse)
@@ -95,9 +118,13 @@ class Api {
   }
 
   deleteCard(cardId, token) {
+    console.log('api delete card ', cardId,token);
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: `Bearer ${token}`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({}),
     })
       .then(this._checkResponse)

@@ -6,7 +6,7 @@ function onOrFail() {
   throw new NotFoundError("No se ha encontrado ninguna tarjeta");
 }
 
-function cardError(){
+function cardError(req,res,err){
   if (err.status === 404) {
     res.status(404).send({ message: "no existe tal tarjeta" });
   } else {
@@ -15,37 +15,41 @@ function cardError(){
 }
 
 module.exports.getCards = (req, res) => {
+  //console.log('cardcontrol getcards ', req);
   Card.find({})
     .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => cardError(err,res));
+    .catch((err) => cardError(req,res,err));
 };
 
 module.exports.postCard = (req, res) => {
+  console.log('cardcontrol post ', req.user, req.body);
   Card.create({
-    name: req.body,
-    link: req.body,
+    name: req.body.name,
+    link: req.body.link,
     owner: req.user._id,
   })
     .then((card) => {
       res.send({ data: card });
     })
-    .catch((err) => cardError(err,res));
+    .catch((err) => cardError(req,res,err));
 };
 
 module.exports.deleteCard = (req, res) => {
-  const { cardId } = req.params.id;
+  console.log('cardcontrol delete ', req.params);
+  const { cardId } = req.params;
   Card.findByIdAndDelete({ _id: cardId })
     .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) =>cardError(err,res));
+    .catch((err) =>cardError(req,res,err));
 };
 
 module.exports.likeCard = (req, res) => {
+  console.log('cardcontrol like ', req);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
@@ -55,10 +59,11 @@ module.exports.likeCard = (req, res) => {
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => cardError(err,res));
+    .catch((err) => cardError(req,res,err));
 };
 
 module.exports.dislikeCard = (req, res) => {
+  console.log('cardcontrol dislike ', req);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
@@ -68,5 +73,5 @@ module.exports.dislikeCard = (req, res) => {
     .then((data) => {
       res.send({ status: true, data: data });
     })
-    .catch((err) => cardError(err,res));
+    .catch((err) => cardError(req,res,err));
 };

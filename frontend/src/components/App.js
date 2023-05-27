@@ -44,15 +44,14 @@ export default function App() {
   const [email, setEmail] = React.useState('');
   const [success, setSuccess] = React.useState(false);
   const [token, setToken] = React.useState(localStorage.getItem('jwt'));
-  const [userId, setUserId] = React.useState('');
+  //const [userId, setUserId] = React.useState('');
   const handleTokenCheckMemo = useCallback((token)=>{
-    //const jwt = localStorage.getItem('jwt');
     console.log('log del jwt token ', token);
     auth.checkToken(token).then((res) => {
       console.log('log del jwt token despues de check ', res);
       if (res) {
         setLoggedIn(true);
-        Navigate('/main');
+        navigate('/main');
       }
     });
     
@@ -147,28 +146,23 @@ export default function App() {
   function handleAddPlaceSubmit({ name, link }) {
     api
       .postCard(name, link, token)
-      .then((newCard) => setCards([newCard, ...cards]))
+      .then((newCard) => {
+        console.log('despies del postcard en app',newCard);
+        setCards([newCard, ...cards])
+      })
       .finally(closeAllPopups());
   }
   ////registry
   function handleLoginSubmit({ email, password }) {
     auth
       .authorize(email, password)
-      .then((data)=>{
-        console.log('la data es:', data);
+      .then((data) => {
+        console.log('adata despues del auth de front ',data);
         setToken(data.token);
-        setUserId(data._id)
-        return token;
-      })
-      .then((token) => {
-        console.log('pre auth del token de login', token)
-        return auth.checkToken(token);
-      })
-      .then((userResponse) => {
-        console.log('response despues del auth en app front', userResponse);
-        setCurrentUser(userResponse);
+        //setUserId(data.user._id)
+        setCurrentUser(data.user.name);
         setLoggedIn(true);
-        setEmail(email);
+        setEmail(data.user.email);
         navigate('/main');
         userPromise();
       })

@@ -58,9 +58,11 @@ module.exports.getCurrentUser = (req, res, next) => {
 };
 
 module.exports.getSpecificUser = (req, res, next) => {
-  User.findById(req.params.id)
+  console.log('req del specificuser ', req.user);
+  User.findById(req.user._id)
     .orFail(onOrFail)
     .then((data) => {
+      console.log('data del specificuser del usercontroller ', data)
       res.send({ status: true, data: data });
     })
     .catch(

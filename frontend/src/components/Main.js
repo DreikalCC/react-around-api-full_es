@@ -1,8 +1,10 @@
 import React, { useContext } from 'react';
 import { Card } from './Card';
+import { Test } from './Test';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export function Main(props) {
+  console.log('log del main para ver carsd', props);
   const currentUserContext = useContext(CurrentUserContext);
   return (
     <>
@@ -36,17 +38,19 @@ export function Main(props) {
       </section>
 
       <section className="elements">
-        {props.cards.map((card) => {
-          return (
-            <Card
-              key={card._id}
-              data={card}
-              onCardClick={props.handleCardClick}
-              onEraseClick={props.handleEraseCardClick}
-              onCardLike={props.onCardLike}
-            />
-          );
-        })}
+        { props.cards.length === 0 ? <Test/> :
+          props.cards.data.map((card) => {
+            return (
+              <Card
+                key={card._id}
+                data={card}
+                onCardClick={props.handleCardClick}
+                onEraseClick={props.handleEraseCardClick}
+                onCardLike={props.onCardLike}
+              />
+            );
+          })
+        }
       </section>
     </>
   );

@@ -34,13 +34,13 @@ export const authorize = (email, password) => {
       if(res.ok){
         return res.json();
       }
-      throw new Error(res.error)
+      throw new Error(res.error);
     })
     .then((data) => {
       console.log('data del auth front 2  ', data);
       localStorage.setItem('jwt', data.token);
-      return data;
-      //return Promise.resolve(data);
+      //return data;
+      return Promise.resolve(data);
     });
 };
 
@@ -56,8 +56,8 @@ export const checkToken = (token) => {
   })
     .then((res) => {
       console.log('log then del checkToken  ', res);
-      res.json()
+      return res.json();
     })
-    .then((data) => data);
+    //.then((data) => data);
 };
 
