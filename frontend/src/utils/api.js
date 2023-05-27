@@ -1,10 +1,7 @@
-const { TEST_URL } = process.env;
-
 class Api {
   constructor({ address, headers }) {
     this.baseUrl = address;
     this.headers = headers;
-    //this.auth = this.headers.authorization;
   }
 
   _checkResponse(res) {

@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema({
         pointsForContainingNumber: 10, 
         pointsForContainingSymbol: 10 
       }),
-    select:false,
+    select:true,
   },
 });
 

@@ -38,7 +38,7 @@ module.exports.postCard = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  console.log('cardcontrol delete ', req.params);
+  console.log('cardcontrol delete   ', req.params);
   const { cardId } = req.params;
   Card.findByIdAndDelete({ _id: cardId })
     .orFail(onOrFail)

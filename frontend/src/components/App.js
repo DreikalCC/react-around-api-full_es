@@ -50,24 +50,26 @@ export default function App() {
     auth.checkToken(token).then((res) => {
       console.log('log del jwt token despues de check ', res);
       if (res) {
+        console.log('revisando al cargar si hay mail  ', email, 'name ', name,'avatar ');
         setLoggedIn(true);
         navigate('/main');
       }
     });
-    
   },[])
 
   React.useEffect(() => {
     handleTokenCheckMemo(token);
-    userPromise();
+    userPromise(token);
   }, [handleTokenCheckMemo]);
 
-  function userPromise() {
+  function userPromise(token) {
     if(token){
       console.log('el token del userprom para tarjetas y usuario', token);
     Promise.all([api.getUserInfo(token), api.getInitialCards(token)])
       .then(([user, serverCards]) => {
-        setCurrentUser(user);
+        console.log('el usuario cargado de inicio', user.data);
+        setCurrentUser(user.data);
+        setEmail(user.data.email);
         setCards(serverCards);
       })
       .catch((err) => {
@@ -157,9 +159,8 @@ export default function App() {
     auth
       .authorize(email, password)
       .then((data) => {
-        console.log('adata despues del auth de front ',data);
+        console.log('adata despues del auth de front ',data.user.email);
         setToken(data.token);
-        //setUserId(data.user._id)
         setCurrentUser(data.user.name);
         setLoggedIn(true);
         setEmail(data.user.email);
