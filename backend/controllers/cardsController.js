@@ -49,7 +49,8 @@ module.exports.deleteCard = (req, res) => {
 };
 
 module.exports.likeCard = (req, res) => {
-  console.log('cardcontrol like ', req);
+  console.log('cardcontrol like params', req.params);
+  console.log('cardcontrol like user', req.user);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
@@ -63,7 +64,8 @@ module.exports.likeCard = (req, res) => {
 };
 
 module.exports.dislikeCard = (req, res) => {
-  console.log('cardcontrol dislike ', req);
+  console.log('cardcontrol dislike params', req.params);
+  console.log('cardcontrol dislike user', req.user);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },

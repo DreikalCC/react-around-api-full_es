@@ -49,7 +49,7 @@ export default function App() {
     console.log('log del jwt token ', token);
     auth.checkToken(token).then((res) => {
       console.log('log del jwt token despues de check ', res);
-      if (res) {
+      if (res.status===true) {
         setLoggedIn(true);
         navigate('/main');
       }
@@ -59,17 +59,17 @@ export default function App() {
   React.useEffect(() => {
     userPromise(token);
     handleTokenCheckMemo(token);
-  }, [handleTokenCheckMemo]);
+  }, []);
 
   function userPromise(token) {
     if(token){
       console.log('el token del userprom para tarjetas y usuario', token);
     Promise.all([api.getUserInfo(token), api.getInitialCards(token)])
       .then(([user, serverCards]) => {
-        console.log('el usuario cargado de inicio', user.data);
+        console.log('cards del server al inicio', serverCards);
         setCurrentUser(user.data);
         setEmail(user.data.email);
-        setCards(serverCards);
+        setCards(serverCards.data);
       })
       .catch((err) => {
         console.log(err);
@@ -78,9 +78,14 @@ export default function App() {
   }
   ////card functions
   function handleCardLike(card) {
+    console.log('card recibido en el handle de app   ', token);
+    console.log('current user id en like', currentUser._id);
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, isLiked, token).then((newCard) => {
+    console.log('is it liked??????', isLiked);
+    api.changeLikeCardStatus(card._id, isLiked, token)
+    .then((newCard) => {
       setCards((state) => {
+        console.log('state despues del card like enviado ', state);
         return state.map((c) => (c._id === card._id ? newCard : c));
       });
     });
@@ -172,9 +177,9 @@ export default function App() {
   }
   function handleLogout() {
     setLoggedIn(false);
-    navigate('/login');
     localStorage.removeItem('jwt');
     setEmail('');
+    navigate('/login');
   }
   function handleSignupSubmit({ email, password }) {
     auth

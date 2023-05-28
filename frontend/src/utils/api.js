@@ -90,32 +90,31 @@ class Api {
   changeLikeCardStatus(cardId, isLiked, token) {
     console.log('api card stat ', cardId,isLiked,token);
     if (isLiked) {
-      return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({}),
       })
         .then(this._checkResponse)
         .catch((err) => console.log(err));
     } else {
-      return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({}),
       })
-        .then(this._checkResponse)
-        .catch((err) => console.log(err));
+      .then(res=>{console.log('log del api despues de liking ', res)})
+      .then(this._checkResponse)
+      .catch((err) => console.log(err));
     }
   }
 
   deleteCard(cardId, token) {
-    console.log('api delete card ', cardId,token);
+    console.log('api delete card ', cardId, token);
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
@@ -133,7 +132,7 @@ const api = new Api({
   address: 'http://localhost:3001',
   token: '04346056-dea4-4d40-8541-43203e80bf1',
   headers: {
-    authorization: '04346056-dea4-4d40-8541-43203e80bf1',
+    Authorization: '04346056-dea4-4d40-8541-43203e80bf1',
     'Content-Type': 'application/json',
   },
 });

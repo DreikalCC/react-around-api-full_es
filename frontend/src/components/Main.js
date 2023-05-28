@@ -38,8 +38,8 @@ export function Main(props) {
       </section>
 
       <section className="elements">
-        { props.cards.length === 0 ? <Test/> :
-          props.cards.data.map((card) => {
+        { !props.cards || !props.cards.length ? <Test/> :
+          props.cards.map((card) => {
             return (
               <Card
                 key={card._id}

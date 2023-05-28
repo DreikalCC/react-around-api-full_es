@@ -50,26 +50,26 @@ router.get(
 
 router.patch(
   "/me",
-  celebrate({
+  /*celebrate({
     body: Joi.object()
       .keys({
         title: Joi.string().required().min(2).max(30),
         about: Joi.string().required().min(2).max(30),
       })
       .unknown(true),
-  }),
+  }),*/
   updateProfile
 );
 
 router.patch(
   "/me/avatar",
-  celebrate({
+  /*celebrate({
     body: Joi.object()
       .keys({
         link: Joi.string().required().custom(validateURL),
       })
       .unknown(true),
-  }),
+  }),*/
   updateAvatar
 );
 

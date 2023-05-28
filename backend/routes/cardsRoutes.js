@@ -36,20 +36,20 @@ router.delete("/:cardId", /*celebrate({
   query: Joi.object().keys({}),
 }),*/ deleteCard);
 
-router.put("/:cardId/likes", celebrate({
+router.put("/:cardId/likes", /*celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().alphanum(),
   }),
   headers: Joi.object().keys({}),
-  //query: Joi.object().keys({}),
-}), likeCard);
+  query: Joi.object().keys({}),
+}),*/ likeCard);
 
-router.delete("/:cardId/likes", celebrate({
+router.delete("/:cardId/likes", /*celebrate({
   params: Joi.object().keys({
     cardId: Joi.string().alphanum(),
   }),
   headers: Joi.object().keys({}),
-  //query: Joi.object().keys({}),
-}), dislikeCard);
+  query: Joi.object().keys({}),
+}),*/ dislikeCard);
 
 module.exports = router;

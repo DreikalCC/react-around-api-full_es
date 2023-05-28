@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
-const { NODE_ENV, JWT_SECRET } = process.env;
+//const { NODE_ENV, JWT_SECRET } = process.env;
 
 const NotFoundError = require("../errors/not-found");
 
@@ -88,11 +88,14 @@ module.exports.createUser = (req, res, next) => {
 };
 
 module.exports.updateProfile = (req, res, next) => {
-  const { userId } = req.params.id;
+  console.log('update prof controller params', req.user);
+  console.log('update prof controller body', req.body);
+  const { userId } = req.user._id;
   const { name, about } = req.body;
-  User.updateOne({ _id: userId }, { name, about })
+  User.updateOne(userId, { name, about })
     .orFail(onOrFail)
     .then((data) => {
+      console.log('data del update en el then   ', data)
       res.send({ status: true, data: data });
     })
     .catch(
@@ -101,9 +104,9 @@ module.exports.updateProfile = (req, res, next) => {
 };
 
 module.exports.updateAvatar = (req, res, next) => {
-  const { userId } = req.params.id;
+  const { userId } = req.user._id;
   const { avatar } = req.body;
-  User.updateOne({ _id: userId }, { avatar })
+  User.updateOne(userId , { avatar })
     .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
