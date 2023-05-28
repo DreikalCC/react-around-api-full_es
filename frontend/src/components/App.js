@@ -59,7 +59,7 @@ export default function App() {
   React.useEffect(() => {
     userPromise(token);
     handleTokenCheckMemo(token);
-  }, []);
+  }, [handleTokenCheckMemo]);
 
   function userPromise(token) {
     if(token){
@@ -78,7 +78,7 @@ export default function App() {
   }
   ////card functions
   function handleCardLike(card) {
-    console.log('card recibido en el handle de app   ', token);
+    console.log('card recibido en el handle de app   ', card.likes);
     console.log('current user id en like', currentUser._id);
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     console.log('is it liked??????', isLiked);

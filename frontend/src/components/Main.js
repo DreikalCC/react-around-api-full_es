@@ -4,7 +4,7 @@ import { Test } from './Test';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export function Main(props) {
-  console.log('log del main para ver carsd', props);
+  console.log('log del main para props ...............', props);
   const currentUserContext = useContext(CurrentUserContext);
   return (
     <>
