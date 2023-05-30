@@ -8,8 +8,16 @@ const { requestLogger, errorLogger } = require("./middlewares/logger");
 const cors = require("cors");
 const usersRoute = require("./routes/usersRoutes");
 const cardsRoute = require("./routes/cardsRoutes");
-const { errors } = require("celebrate");
-const { login, createUser } = require('./controllers/usersController')
+const { errors, celebrate, Joi } = require("celebrate");
+const { login, createUser } = require('./controllers/usersController');
+const validator = require('validator');
+
+function validateURL(value, helpers) {
+  if (validator.isURL(value)) {
+    return value;
+  }
+  return helpers.error('string.uri');
+}
 
 config();
 
@@ -40,8 +48,25 @@ app.get('/crash-test', () => {
 app.use("/users", auth, usersRoute);
 app.use("/cards", auth, cardsRoute);
 
-app.post("/login", login);
-app.post("/signup", createUser);
+app.post("/login", 
+  celebrate({
+    body: Joi.object().keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().min(6),
+    }),
+  }),
+login);
+app.post("/signup",
+celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    about: Joi.string().min(2).max(30),
+    avatar: Joi.string().custom(validateURL),
+    email: Joi.string().required().email(),
+    password: Joi.string().min(4),
+  }),
+}),
+createUser);
 
 app.use(errorLogger);
 app.use(errors());

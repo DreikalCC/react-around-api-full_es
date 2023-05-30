@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         require_tld: true,
         require_protocol: true,
       }),
-    default:'https://images.unsplash.com/photo-1684779847503-001f1584bc00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=662&q=80',
+    default:'https://practicum-content.s3.us-west-1.amazonaws.com/resources/moved_avatar_1604080799.jpg',
   },
   email: {
     type: String,

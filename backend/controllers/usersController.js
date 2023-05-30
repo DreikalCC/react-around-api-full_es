@@ -42,7 +42,7 @@ module.exports.login = (req, res, next) => {
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.params.id)
-    .select('+password')
+    //.select('+password')
     .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
@@ -54,6 +54,7 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.getSpecificUser = (req, res, next) => {
   User.findById(req.user._id)
+    //.select('+password')
     .orFail(onOrFail)
     .then((data) => {
       res.send({ status: true, data: data });
@@ -84,6 +85,7 @@ module.exports.updateProfile = (req, res, next) => {
   const userId = req.user._id;
   const { name, about } = req.body;
   User.updateOne({_id: userId}, { name, about })
+    //.select('+password')
     .orFail(onOrFail)
     .then(()=>User.findById(userId))
     .then((data) => {
@@ -98,6 +100,7 @@ module.exports.updateAvatar = (req, res, next) => {
   const userId = req.user._id;
   const { avatar } = req.body;
   User.updateOne({_id: userId} , { avatar })
+    //.select('+password')
     .orFail(onOrFail)
     .then(()=>User.findById(userId))
     .then((data) => {
