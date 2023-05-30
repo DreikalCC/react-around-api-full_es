@@ -51,7 +51,6 @@ class Api {
       }),
     })
       .then(this._checkResponse)
-      .then(res=>console.log('log del api despues de check resposne del user', res))
       .catch((err) => console.log(err));
   }
 

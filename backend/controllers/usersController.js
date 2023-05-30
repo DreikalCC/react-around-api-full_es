@@ -91,10 +91,11 @@ module.exports.createUser = (req, res, next) => {
 module.exports.updateProfile = (req, res, next) => {
   console.log('update prof controller params', req.user);
   console.log('update prof controller body', req.body);
-  const { userId } = req.user._id;
+  const userId = req.user._id;
   const { name, about } = req.body;
-  User.updateOne(userId, { name, about })
+  User.updateOne({_id: userId}, { name, about })
     .orFail(onOrFail)
+    .then(()=>User.findById(userId))
     .then((data) => {
       console.log('data del update en el then   ', data)
       res.send({ status: true, data: data });
@@ -105,10 +106,11 @@ module.exports.updateProfile = (req, res, next) => {
 };
 
 module.exports.updateAvatar = (req, res, next) => {
-  const { userId } = req.user._id;
+  const userId = req.user._id;
   const { avatar } = req.body;
-  User.updateOne(userId , { avatar })
+  User.updateOne({_id: userId} , { avatar })
     .orFail(onOrFail)
+    .then(()=>User.findById(userId))
     .then((data) => {
       console.log('data del update en el then de avatar  ', data)
       res.send({ status: true, data: data });

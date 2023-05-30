@@ -43,9 +43,10 @@ export default function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [success, setSuccess] = React.useState(false);
-  const [token, setToken] = React.useState(localStorage.getItem('jwt'));
+  const [token, setToken] = React.useState(null);
   const handleTokenCheckMemo = useCallback((token)=>{
     console.log('log del jwt token ', token);
+    if(!token) return ;
     auth.checkToken(token).then((res) => {
       console.log('log del jwt token despues de check ', res);
       if (res.status===true) {
@@ -56,9 +57,10 @@ export default function App() {
   },[])
 
   React.useEffect(() => {
+    if(!token) return;
     handleTokenCheckMemo(token);
     userPromise(token);
-  }, []);
+  }, [token]);
   /*React.useEffect(() => {
     handleTokenCheckMemo(token);
     userPromise(token);
