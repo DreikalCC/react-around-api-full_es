@@ -15,7 +15,6 @@ function cardError(req,res,err){
 }
 
 module.exports.getCards = (req, res) => {
-  //console.log('cardcontrol getcards ', req);
   Card.find({})
     .orFail(onOrFail)
     .then((data) => {
@@ -25,7 +24,6 @@ module.exports.getCards = (req, res) => {
 };
 
 module.exports.postCard = (req, res) => {
-  console.log('cardcontrol post ', req.user, req.body);
   Card.create({
     name: req.body.name,
     link: req.body.link,
@@ -38,7 +36,6 @@ module.exports.postCard = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  console.log('cardcontrol delete   ', req.params);
   const { cardId } = req.params;
   Card.findByIdAndDelete({ _id: cardId })
     .orFail(onOrFail)
@@ -49,8 +46,6 @@ module.exports.deleteCard = (req, res) => {
 };
 
 module.exports.likeCard = (req, res) => {
-  console.log('cardcontrol like params', req.params);
-  console.log('cardcontrol like user', req.user);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
@@ -64,8 +59,6 @@ module.exports.likeCard = (req, res) => {
 };
 
 module.exports.dislikeCard = (req, res) => {
-  console.log('cardcontrol dislike params', req.params);
-  console.log('cardcontrol dislike user', req.user);
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },

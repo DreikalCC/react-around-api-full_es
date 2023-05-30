@@ -5,7 +5,6 @@ class Api {
   }
 
   _checkResponse(res) {
-    console.log("res del api check response ", res);
     if (res.ok) {
       return res.json();
     }
@@ -14,7 +13,6 @@ class Api {
   }
 
   getInitialCards(token) {
-    console.log('api getinicards token', token);
     return fetch(`${this.baseUrl}/cards`, {
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +24,6 @@ class Api {
   }
 
   getUserInfo(token) {
-    console.log('api getuserinfo', token);
     return fetch(`${this.baseUrl}/users/me`, {
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +35,6 @@ class Api {
   }
 
   postUserInfo(name, about, token) {
-    console.log('api postinfo ', name, about, token);
     return fetch(`${this.baseUrl}/users/me`, {
       method: 'PATCH',
       headers: {
@@ -55,7 +51,6 @@ class Api {
   }
 
   postUserAvatar(link, token) {
-    console.log('api avatar ', link, token);
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: {
@@ -71,7 +66,6 @@ class Api {
   }
 
   postCard(name, link, token) {
-    console.log('api de postcard ', name, link, token);
     return fetch(`${this.baseUrl}/cards`, {
       method: 'POST',
       headers: {
@@ -88,7 +82,6 @@ class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked, token) {
-    console.log('api card stat ', cardId,isLiked,token);
     if (isLiked) {
       return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
         method: 'DELETE',
@@ -113,7 +106,6 @@ class Api {
   }
 
   deleteCard(cardId, token) {
-    console.log('api delete card ', cardId, token);
     return fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {

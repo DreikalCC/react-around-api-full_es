@@ -43,35 +43,26 @@ export default function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [email, setEmail] = React.useState('');
   const [success, setSuccess] = React.useState(false);
-  const [token, setToken] = React.useState(null);
+  const [token, setToken] = React.useState(localStorage.getItem('jwt'));
   const handleTokenCheckMemo = useCallback((token)=>{
-    //const logToken = localStorage.getItem('jwt');
-    //setToken(logToken);
     if(!token) return ;
     auth.checkToken(token).then((res) => {
-      console.log('log del jwt token despues de check ', res);
       if (res.status===true) {
         setLoggedIn(true);
         navigate('/main');
       }
     });
   },[])
-
   React.useEffect(() => {
     if(!token) return;
     handleTokenCheckMemo(token);
     userPromise(token);
   }, [token]);
-  React.useEffect(() => {
-    handleTokenCheckMemo(token);
-  }, []);
 
   function userPromise(token) {
     if(token){
-      console.log('el token del userprom para tarjetas y usuario', token);
     Promise.all([api.getUserInfo(token), api.getInitialCards(token)])
       .then(([user, serverCards]) => {
-        console.log('cards del server al inicio', serverCards);
         setCurrentUser(user.data);
         setEmail(user.data.email);
         setCards(serverCards.data);
@@ -83,15 +74,10 @@ export default function App() {
   }
   ////card functions
   function handleCardLike(card) {
-    console.log('card recibido en el handle de app   ', card);
-    console.log('current user id en like', currentUser._id);
     const isLiked = card.likes.some((i) => i === currentUser._id);
-    console.log('is it liked??????', isLiked);
     api.changeLikeCardStatus(card._id, isLiked, token)
     .then((newCards) => {
-      console.log('new card despues del like o dislike ', newCards);
       setCards((state) => {
-        console.log('state despues del card like enviado ', state);
         return state.map((c) => (c._id === card._id ? newCards.data : c));
       });
     });
@@ -140,11 +126,9 @@ export default function App() {
   }
   ////updaters
   function handleUpdateUser({ name, about }) {
-    console.log('app update user info',name,about);
     api
       .postUserInfo(name, about, token)
       .then((res) => {
-        console.log('res del updateuser unfo', res)
         setCurrentUser(res.data);
       })
       .finally(closeAllPopups());
@@ -158,11 +142,9 @@ export default function App() {
       .finally(closeAllPopups());
   }
   function handleAddPlaceSubmit({ name, link }) {
-    console.log('name y link de la nueva card', name, link)
     api
       .postCard(name, link, token)
       .then((newCard) => {
-        console.log('despies del postcard en app',newCard);
         setCards([newCard.data, ...cards])
       })
       .finally(closeAllPopups());
@@ -172,7 +154,6 @@ export default function App() {
     auth
       .authorize(email, password)
       .then((data) => {
-        console.log('adata despues del auth de front ',data.user.email);
         setToken(data.token);
         setCurrentUser(data.user.name);
         setLoggedIn(true);

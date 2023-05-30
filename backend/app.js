@@ -15,8 +15,6 @@ config();
 
 const { PORT } = process.env;
 
-console.log(process.env);
-
 mongoose.connect("mongodb+srv://testaldo:test123456@cluster0.hqf55.mongodb.net/aroundb?retryWrites=true&w=majority");
 
 app.listen(PORT, () => {
