@@ -15,7 +15,7 @@ config();
 
 const { PORT } = process.env;
 
-mongoose.connect("mongodb+srv://testaldo:test123456@cluster0.hqf55.mongodb.net/aroundb?retryWrites=true&w=majority");
+mongoose.connect("mongodb://127.0.0.1/aroundb");
 
 app.listen(PORT, () => {
   console.log(`App listening to port ${PORT}`);
