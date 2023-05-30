@@ -5,6 +5,7 @@ class Api {
   }
 
   _checkResponse(res) {
+    console.log("res del api check response ", res);
     if (res.ok) {
       return res.json();
     }
@@ -50,6 +51,7 @@ class Api {
       }),
     })
       .then(this._checkResponse)
+      .then(res=>console.log('log del api despues de check resposne del user', res))
       .catch((err) => console.log(err));
   }
 
@@ -83,7 +85,6 @@ class Api {
       }),
     })
       .then(this._checkResponse)
-      .then((res)=>console.log('despues del checkresponse del postcard', res))
       .catch((err) => console.log(err));
   }
 
@@ -97,7 +98,7 @@ class Api {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then(this._checkResponse)
+        .then((res)=>this._checkResponse(res))
         .catch((err) => console.log(err));
     } else {
       return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
@@ -107,8 +108,7 @@ class Api {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(res=>{console.log('log del api despues de liking ', res)})
-      .then(this._checkResponse)
+      .then((res)=>this._checkResponse(res))
       .catch((err) => console.log(err));
     }
   }

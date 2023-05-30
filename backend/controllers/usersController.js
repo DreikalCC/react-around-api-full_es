@@ -87,6 +87,7 @@ module.exports.createUser = (req, res, next) => {
     );
 };
 
+
 module.exports.updateProfile = (req, res, next) => {
   console.log('update prof controller params', req.user);
   console.log('update prof controller body', req.body);
@@ -109,6 +110,7 @@ module.exports.updateAvatar = (req, res, next) => {
   User.updateOne(userId , { avatar })
     .orFail(onOrFail)
     .then((data) => {
+      console.log('data del update en el then de avatar  ', data)
       res.send({ status: true, data: data });
     })
     .catch(

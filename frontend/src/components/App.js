@@ -44,7 +44,6 @@ export default function App() {
   const [email, setEmail] = React.useState('');
   const [success, setSuccess] = React.useState(false);
   const [token, setToken] = React.useState(localStorage.getItem('jwt'));
-  //const [userId, setUserId] = React.useState('');
   const handleTokenCheckMemo = useCallback((token)=>{
     console.log('log del jwt token ', token);
     auth.checkToken(token).then((res) => {
@@ -57,9 +56,13 @@ export default function App() {
   },[])
 
   React.useEffect(() => {
-    userPromise(token);
     handleTokenCheckMemo(token);
-  }, [handleTokenCheckMemo]);
+    userPromise(token);
+  }, []);
+  /*React.useEffect(() => {
+    handleTokenCheckMemo(token);
+    userPromise(token);
+  }, []);*/
 
   function userPromise(token) {
     if(token){
@@ -78,15 +81,16 @@ export default function App() {
   }
   ////card functions
   function handleCardLike(card) {
-    console.log('card recibido en el handle de app   ', card.likes);
+    console.log('card recibido en el handle de app   ', card);
     console.log('current user id en like', currentUser._id);
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     console.log('is it liked??????', isLiked);
     api.changeLikeCardStatus(card._id, isLiked, token)
-    .then((newCard) => {
+    .then((newCards) => {
+      console.log('new card despues del like o dislike ', newCards);
       setCards((state) => {
         console.log('state despues del card like enviado ', state);
-        return state.map((c) => (c._id === card._id ? newCard : c));
+        return state.map((c) => (c._id === card._id ? newCards.data : c));
       });
     });
   }
@@ -134,10 +138,12 @@ export default function App() {
   }
   ////updaters
   function handleUpdateUser({ name, about }) {
+    console.log('app update user info',name,about);
     api
       .postUserInfo(name, about, token)
       .then((res) => {
-        setCurrentUser(res);
+        console.log('res del updateuser unfo', res)
+        setCurrentUser(res.data);
       })
       .finally(closeAllPopups());
   }
@@ -145,16 +151,17 @@ export default function App() {
     api
       .postUserAvatar(avatar, token)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser(res.data);
       })
       .finally(closeAllPopups());
   }
   function handleAddPlaceSubmit({ name, link }) {
+    console.log('name y link de la nueva card', name, link)
     api
       .postCard(name, link, token)
       .then((newCard) => {
         console.log('despies del postcard en app',newCard);
-        setCards([newCard, ...cards])
+        setCards([newCard.data, ...cards])
       })
       .finally(closeAllPopups());
   }
