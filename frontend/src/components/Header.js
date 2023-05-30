@@ -4,7 +4,6 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 export function Header(props) {
-  //console.log('header props  ',props);
   function signOut() {
     props.handleLogoutClick();
     localStorage.removeItem('jwt');
