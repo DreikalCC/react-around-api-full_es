@@ -13,7 +13,7 @@ module.exports.getUsers = (req, res, next) => {
   User.find({})
     .orFail(onOrFail)
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
     .catch(
       next
@@ -45,7 +45,7 @@ module.exports.getCurrentUser = (req, res, next) => {
     //.select('+password')
     .orFail(onOrFail)
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
     .catch(
       next
@@ -57,7 +57,7 @@ module.exports.getSpecificUser = (req, res, next) => {
     //.select('+password')
     .orFail(onOrFail)
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
     .catch(
       next
@@ -89,7 +89,7 @@ module.exports.updateProfile = (req, res, next) => {
     .orFail(onOrFail)
     .then(()=>User.findById(userId))
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
     .catch(
       next
@@ -104,7 +104,7 @@ module.exports.updateAvatar = (req, res, next) => {
     .orFail(onOrFail)
     .then(()=>User.findById(userId))
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
     .catch(
       next

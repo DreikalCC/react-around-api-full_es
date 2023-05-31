@@ -64,7 +64,7 @@ const userSchema = new mongoose.Schema({
         pointsForContainingNumber: 10, 
         pointsForContainingSymbol: 10 
       }),
-    select:true,
+    select:false,
   },
 });
 
@@ -74,6 +74,7 @@ userSchema.statics.findUserByCredentials = function findUserByCredentials(
 ) {
 
   return this.findOne({ email })
+    .select('+password')
     .then((user) => {
       if (!user) {
         return Promise.reject(new Error("Email o password incorrecto"));

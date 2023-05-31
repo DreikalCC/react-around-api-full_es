@@ -21,7 +21,7 @@ function validateURL(value, helpers) {
 
 config();
 
-const { PORT } = process.env;
+const { PORT=3000 } = process.env;
 
 mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
