@@ -29,7 +29,7 @@ export const authorize = (email, password) => {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      if(res.ok){
+      if (res.ok) {
         return res.json();
       }
       throw new Error(res.error);
@@ -48,9 +48,7 @@ export const checkToken = (token) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-  })
-    .then((res) => {
-      return res.json();
-    })
+  }).then((res) => {
+    return res.json();
+  });
 };
-

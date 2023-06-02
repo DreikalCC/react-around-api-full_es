@@ -44,39 +44,38 @@ export default function App() {
   const [email, setEmail] = React.useState('');
   const [success, setSuccess] = React.useState(false);
   const [token, setToken] = React.useState(localStorage.getItem('jwt'));
-  const handleTokenCheckMemo = useCallback((token)=>{
-    if(!token) return ;
+  const handleTokenCheckMemo = useCallback((token) => {
+    if (!token) return;
     auth.checkToken(token).then((res) => {
-      if (res.status===true) {
+      if (res.status === true) {
         setLoggedIn(true);
         navigate('/main');
       }
     });
-  },[])
+  }, []);
   React.useEffect(() => {
-    if(!token) return;
+    if (!token) return;
     handleTokenCheckMemo(token);
     userPromise(token);
   }, [token]);
 
   function userPromise(token) {
-    if(token){
-    Promise.all([api.getUserInfo(token), api.getInitialCards(token)])
-      .then(([user, serverCards]) => {
-        setCurrentUser(user.data);
-        setEmail(user.data.email);
-        setCards(serverCards.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (token) {
+      Promise.all([api.getUserInfo(token), api.getInitialCards(token)])
+        .then(([user, serverCards]) => {
+          setCurrentUser(user.data);
+          setEmail(user.data.email);
+          setCards(serverCards.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
   ////card functions
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
-    api.changeLikeCardStatus(card._id, isLiked, token)
-    .then((newCards) => {
+    api.changeLikeCardStatus(card._id, isLiked, token).then((newCards) => {
       setCards((state) => {
         return state.map((c) => (c._id === card._id ? newCards.data : c));
       });
@@ -145,7 +144,7 @@ export default function App() {
     api
       .postCard(name, link, token)
       .then((newCard) => {
-        setCards([newCard.data, ...cards])
+        setCards([newCard.data, ...cards]);
       })
       .finally(closeAllPopups());
   }
@@ -187,7 +186,7 @@ export default function App() {
         console.log(err);
       });
   }
-  
+
   ////events handlers
   function handleLocationChange(e) {
     setLocation(e.target.value);
@@ -214,7 +213,7 @@ export default function App() {
           email={email}
         />
         <Routes>
-          <Route path='/test' element={<Test/>} />
+          <Route path='/test' element={<Test />} />
           <Route
             path='/main'
             element={

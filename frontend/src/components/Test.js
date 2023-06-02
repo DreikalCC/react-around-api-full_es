@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-export const Test =()=>{
-    return(
-        <>
-        <h1>Bienvenido!!</h1>
-        </>
-    )
-}
+export const Test = () => {
+  return (
+    <>
+      <h1>Bienvenido!!</h1>
+    </>
+  );
+};

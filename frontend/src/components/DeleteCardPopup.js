@@ -8,9 +8,9 @@ export function DeleteCardPopup(props) {
   }
   return (
     <PopupWithForm
-      name="eraser"
-      title="¿Estás seguro?"
-      buttonText="Si"
+      name='eraser'
+      title='¿Estás seguro?'
+      buttonText='Si'
       onSubmit={handleSubmit}
       isPopupOpen={props.isOpen}
       onClose={props.onClose}

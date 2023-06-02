@@ -7,7 +7,7 @@ export function Card(props) {
   const cardDeleteButtonClassName = `${
     isOwn ? 'element__erase' : 'element__erase_disabled'
   }`;
-  const card = props.data
+  const card = props.data;
   const isLiked = card.likes.some((i) => i === currentUser._id);
 
   const cardLikeButtonClassName = `element__like ${
@@ -15,30 +15,30 @@ export function Card(props) {
   }`;
 
   return (
-    <div className="element">
+    <div className='element'>
       <img
-        className="element__image"
+        className='element__image'
         onClick={props.onCardClick}
         src={props.data.link}
         alt={props.data.name}
       />
       <button
-        id="erase-btn"
+        id='erase-btn'
         className={cardDeleteButtonClassName}
         onClick={() => {
           props.onEraseClick(props.data);
         }}
       ></button>
-      <div className="element__group">
-        <h3 className="element__location">{props.data.name}</h3>
-        <div className="element__like-area">
+      <div className='element__group'>
+        <h3 className='element__location'>{props.data.name}</h3>
+        <div className='element__like-area'>
           <button
             className={cardLikeButtonClassName}
             onClick={() => {
               props.onCardLike(props.data);
             }}
           ></button>
-          <span className="element__counter">{props.data.likes.length}</span>
+          <span className='element__counter'>{props.data.likes.length}</span>
         </div>
       </div>
     </div>

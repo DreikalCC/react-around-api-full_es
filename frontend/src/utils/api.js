@@ -90,7 +90,7 @@ class Api {
           Authorization: `Bearer ${token}`,
         },
       })
-        .then((res)=>this._checkResponse(res))
+        .then((res) => this._checkResponse(res))
         .catch((err) => console.log(err));
     } else {
       return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
@@ -100,8 +100,8 @@ class Api {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res)=>this._checkResponse(res))
-      .catch((err) => console.log(err));
+        .then((res) => this._checkResponse(res))
+        .catch((err) => console.log(err));
     }
   }
 

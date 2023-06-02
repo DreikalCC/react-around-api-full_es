@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx eslint .",
+    "lint": "npx eslint --fix --ext .js,.jsx .",
     "dev": "nodemon index.js",
     "start": "node app.js"
   },
@@ -20,13 +20,13 @@
   },
   "homepage": "https://github.com/DreikalCC/around-express_es#readme",
   "devDependencies": {
-    "dotenv": "^16.0.3",
     "eslint": "^8.31.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "bcryptjs": "^2.4.3",
     "celebrate": "^15.0.1",
     "cors": "^2.8.5",

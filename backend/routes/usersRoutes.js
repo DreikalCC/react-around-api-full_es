@@ -1,4 +1,5 @@
-const express = require("express");
+const express = require('express');
+
 const router = express.Router();
 
 const {
@@ -7,28 +8,28 @@ const {
   updateProfile,
   updateAvatar,
   getCurrentUser,
-} = require("../controllers/usersController");
+} = require('../controllers/usersController');
 
-router.get("/", getUsers);
+router.get('/', getUsers);
 
 router.get(
-  "/:id",
-  getSpecificUser
+  '/:id',
+  getSpecificUser,
 );
 
 router.get(
-  "/users/me",
-  getCurrentUser
+  '/users/me',
+  getCurrentUser,
 );
 
 router.patch(
-  "/me",
-  updateProfile
+  '/me',
+  updateProfile,
 );
 
 router.patch(
-  "/me/avatar",
-  updateAvatar
+  '/me/avatar',
+  updateAvatar,
 );
 
 module.exports = router;

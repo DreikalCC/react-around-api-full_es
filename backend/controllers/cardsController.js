@@ -6,24 +6,27 @@ function onOrFail() {
   throw new NotFoundError("No se ha encontrado ninguna tarjeta");
 }
 
-function cardError(req,res,err){
+/*function cardError(req, res, err) {
   if (err.status === 404) {
     res.status(404).send({ message: "no existe tal tarjeta" });
   } else {
     res.status(500).send({ message: "Error", err, body: req.body });
   }
-}
+}*/
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Card.find({})
     .orFail(onOrFail)
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
-    .catch((err) => cardError(req,res,err));
+    .catch(
+      next
+      //(err) => cardError(req, res, err)
+    );
 };
 
-module.exports.postCard = (req, res) => {
+module.exports.postCard = (req, res, next) => {
   Card.create({
     name: req.body.name,
     link: req.body.link,
@@ -32,20 +35,26 @@ module.exports.postCard = (req, res) => {
     .then((card) => {
       res.send({ data: card });
     })
-    .catch((err) => cardError(req,res,err));
+    .catch(
+      next
+      //(err) => cardError(req, res, err)
+    );
 };
 
-module.exports.deleteCard = (req, res) => {
+module.exports.deleteCard = (req, res, next) => {
   const { cardId } = req.params;
   Card.findByIdAndDelete({ _id: cardId })
     .orFail(onOrFail)
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
-    .catch((err) =>cardError(req,res,err));
+    .catch(
+      next
+      //(err) => cardError(req, res, err)
+    );
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
@@ -53,12 +62,15 @@ module.exports.likeCard = (req, res) => {
   )
     .orFail(onOrFail)
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
-    .catch((err) => cardError(req,res,err));
+    .catch(
+      next
+      //(err) => cardError(req, res, err)
+    );
 };
 
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
@@ -66,7 +78,10 @@ module.exports.dislikeCard = (req, res) => {
   )
     .orFail(onOrFail)
     .then((data) => {
-      res.send({ status: true, data: data });
+      res.send({ status: true, data });
     })
-    .catch((err) => cardError(req,res,err));
+    .catch(
+      next
+      //(err) => cardError(req, res, err)
+    );
 };
